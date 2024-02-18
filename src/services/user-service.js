@@ -34,21 +34,36 @@ class UserService {
   }
   createToken(user) {
     try {
-      const response = jwt.sign(user, JWT_KEY, { expiresIn: '10h' });
+      const response = jwt.sign(user, JWT_KEY, { expiresIn: "10h" });
       return response;
     } catch (error) {
-      console.log("something went wrong in the user service while creating token");
+      console.log(
+        "something went wrong in the user service while creating token"
+      );
       throw error;
     }
   }
   verifyToken(token) {
-try {
-  const response = jwt.verify(token, JWT_KEY);
-  return response;
-} catch (error) {
-  console.log("something went wrong in the user service while verifying token");
-  throw error;
-}
+    try {
+      const response = jwt.verify(token, JWT_KEY);
+      return response;
+    } catch (error) {
+      console.log(
+        "something went wrong in the user service while verifying token"
+      );
+      throw error;
+    }
+  }
+  checkPassword(password, encryptedPassword) {
+    try {
+      const response = bcrypt.compareSync(password, encryptedPassword);
+      return response;
+    } catch (error) {
+      console.log(
+        "something went wrong in the user service while checking password"
+      );
+      throw error;
+    }
   }
 }
 
