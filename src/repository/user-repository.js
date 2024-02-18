@@ -22,5 +22,18 @@ class UserRepository {
       throw error;
     }
   }
+  async getById(userId) {
+    try {
+      const user = await User.findByPk(userId, {
+        attributes: {
+          exclude: ["password"],
+        },
+      });
+      return user;
+    } catch (error) {
+      console.log("something went wrong in the user repository");
+      throw error;
+    }
+  }
 }
 module.exports = UserRepository;
