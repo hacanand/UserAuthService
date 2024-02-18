@@ -35,7 +35,7 @@ class UserService {
   }
   createToken(user) {
     try {
-      const response = jwt.sign(user, JWT_KEY, { expiresIn: '1d' });
+      const response = jwt.sign(user, JWT_KEY, { expiresIn: "1d" });
       return response;
     } catch (error) {
       console.log(
@@ -47,7 +47,6 @@ class UserService {
   checkPassword(password, encryptedPassword) {
     try {
       return bcrypt.compareSync(password, encryptedPassword);
-       
     } catch (error) {
       console.log(
         "something went wrong in the user service while checking password"
@@ -66,6 +65,21 @@ class UserService {
       throw error;
     }
   }
+  async isAuthenticated(token) {
+    try {
+      const isTOkenVerified = await this.verifyToken(token);
+      if (!isTOkenVerified) throw { error: "token is not verified" };
+      const user = this.userRepository.getById(isTOkenVerified.id);
+      if (!user) throw { error: "user not found" };
+      return user.id;
+    } catch (error) {
+      console.log(
+        "something went wrong in the user service while verifying token"
+      );
+      throw error;
+    }
+  }
+
   async signIn(email, plainPassword) {
     try {
       // step 1: get user by email
