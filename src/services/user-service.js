@@ -69,7 +69,7 @@ class UserService {
     try {
       const isTOkenVerified = await this.verifyToken(token);
       if (!isTOkenVerified) throw { error: "token is not verified" };
-      const user = this.userRepository.getById(isTOkenVerified.id);
+      const user = await this.userRepository.getById(isTOkenVerified.id);
       if (!user) throw { error: "user not found" };
       return user.id;
     } catch (error) {
