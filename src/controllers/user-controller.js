@@ -13,10 +13,9 @@ const create = async (req, res) => {
       success: true,
     });
   } catch (error) {
-   return  res.status(500).json({
-      message:
-        "User creation failed due to an internal server error at controller level",
-      err: error,
+   return  res.status(error.statusCode||500).json({
+      message: error.message,
+      err: error.explanation,
       success: false,
       data: {},
     });
