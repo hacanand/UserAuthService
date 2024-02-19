@@ -1,5 +1,6 @@
-const validateAuthRequest = require("./auth-request-validator");
+const {validateAuthRequest, validateIsAdminRequest} = require("./auth-request-validator");
 
 module.exports = {
     validateAuthRequest,
+    validateIsAdminRequest
 };
