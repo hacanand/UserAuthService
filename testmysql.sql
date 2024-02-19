@@ -5,3 +5,5 @@ show tables;
 
 select * from users;
 desc users;
+ 
+select * from roles;
